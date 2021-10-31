@@ -1,3 +1,4 @@
+#Eden Woland
 import pandas as pd
 import os
 import matplotlib.pyplot as plt
@@ -14,11 +15,13 @@ class NameFrequency:
 
     # Load CSV file
     # dropping null value columns to avoid errors
-    # making data frame
+    # making data frame, needed to add to pandas dataframe from the dictionary
     def preparingData(self, file_name, column_name):
         data = pd.read_csv(file_name)
         data.dropna(inplace=True)
-        data_frame = dict(data[column_name].str.split(" ", n=1, expand=True))
+        data_frame = pd.DataFrame.from_dict(dict(data[column_name].str.split(" ", n=1, expand=True)))
+        # pd.DataFrame like the others above,
+        #When I searched that this came up https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.from_dict.html
         self.data_frame = data_frame
         if isinstance(self.data_frame, pd.DataFrame):
             return True
